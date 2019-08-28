@@ -9,8 +9,8 @@
 节点定义:  
 typedef struct node  
 {  
-&emsp 数据域;  
-&emsp 指针域;  
+&emsp;数据域;  
+&emsp;指针域;  
 }node;  
 
 操作链表时常用的三个特殊指针:  
