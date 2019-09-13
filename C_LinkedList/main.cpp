@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
+
+using namespace std;
 
 typedef struct node{	// node 类型
 	int data;
@@ -19,7 +22,7 @@ node* create_link_list()
 
 	ptr_current = ptr_head;
 	int i; 
-	int array[] = { 1, 0, 0 };
+	int array[] = { 1,2,3,4,5 };
 	for (i = 0; i < (sizeof(array)/sizeof(int)); i++)
 	{
 		ptr_new = (node*)malloc(1 * sizeof(node));
@@ -375,6 +378,60 @@ bool isPalindrome(struct node* head){
 	return true;
 }
 
+/* 
+	奇偶linkedlist :
+	1->2->3->4->5->NULL  1->3->5->2->4->NULL
+
+	思路：
+	1.用两个奇偶指针分别指向奇偶节点的起始位置，另外需要一个单独的指针even_head来保存偶节点的起点位置，
+	2.然后把奇节点的指向偶节点的下一个(一定是奇节点)，此奇节点后移一步;
+	  再把偶节点指向下一个奇节点的下一个(一定是偶节点)，此偶节点后移一步，以此类推直至末尾，
+	3.此时把分开的偶节点的链表连在奇节点的链表后即可
+*/
+
+node* oddEvenList(node* head){
+	if (!head || !head->next)
+	{
+		return head;
+	}
+
+	node* odd = head->next;
+	node* even = head->next->next;
+	node* even_head = even;
+	while (even && even->next)
+	{
+		odd->next = even->next;
+		odd = odd->next;
+		even->next = odd->next;
+		even = even->next;
+	}
+	odd->next = even_head;
+
+	return head;
+
+	/*
+	下面的方法想不改变节点的指向，而直接交换节点的值，事实上，该方法经测试不可行.
+	*/
+
+	//// 第一个节点位置不变，所以从第三个节点开始
+	//node* p_odd = head->next->next->next;					// 第二个奇
+	//node* p_event = head->next->next;						// 偶
+	//
+	//while (p_odd != NULL && p_odd->next != NULL /*&& p_odd->next->next != NULL*/ /*p_event->next != NULL*/)
+	//{
+	//	// swap:
+	//	swap(p_odd->data, p_event->data);
+	//	//int tmp = p_odd->data;	// 第一个奇节点的下一个的下一个与第一个偶交换
+	//	//p_odd->data = p_event->data;
+	//	//p_event->data = tmp;
+
+	//	p_odd = p_odd->next->next;		// 奇跳2
+	//	p_event = p_event->next->next;  // 偶跳2	
+	//}
+
+	//return head;
+}
+
 int main()
 {
 	node* ptr_head = create_link_list();
@@ -411,15 +468,19 @@ int main()
 	//}
 	//print_linked_list(IntersectionNode);
 
-	bool b = isPalindrome(ptr_head);
-	if (b == true)
-	{
-		printf("是\n");
-	}
-	else
-	{
-		printf("否\n");
-	}
+	//bool b = isPalindrome(ptr_head);
+	//if (b == true)
+	//{
+	//	printf("是\n");
+	//}
+	//else
+	//{
+	//	printf("否\n");
+	//}
+
+	printf("奇偶：\n");
+	node* p_t = oddEvenList(ptr_head);
+	print_linked_list(p_t);
 
 	/*node* tmp_delete = delete_linked_list(ptr_head, dest_value);
 	if (tmp_delete == NULL)
