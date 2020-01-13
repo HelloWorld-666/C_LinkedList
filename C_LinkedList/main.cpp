@@ -432,6 +432,71 @@ node* oddEvenList(node* head){
 	//return head;
 }
 
+/**************************************************************************/
+node* create_link_list1()
+{
+	node* ptr_head = NULL;
+	node* ptr_current = NULL;
+	node* ptr_new = NULL;
+
+	ptr_head = (node*)malloc(1 * sizeof(node));
+	ptr_head->data = 0;
+	ptr_head->next = NULL;
+
+	ptr_current = ptr_head;
+	int i;
+	int array[] = { 1, 2, 3, 4, 5 };
+	for (i = 0; i < (sizeof(array) / sizeof(int)); i++)
+	{
+		ptr_new = (node*)malloc(1 * sizeof(node));
+		ptr_new->data = array[i];// i + 1;
+		ptr_new->next = NULL;
+
+		ptr_current->next = ptr_new;
+		ptr_current = ptr_current->next;
+	}
+
+	return ptr_head;
+}
+
+// reverse linklist(LiSenLing版本)
+node* reverseList1(node* ptr_head){
+
+	if (NULL == ptr_head || NULL == ptr_head->next)
+	{
+		return ptr_head;
+	}
+	/***************************************************/
+	node* cur = ptr_head;
+	node* pre = NULL;
+	node* end = NULL;
+	while (cur != NULL)
+	{
+		end = cur->next;
+		cur->next = pre;
+		pre = cur;
+		cur = end;
+	}
+
+	free(ptr_head);
+	ptr_head = NULL;
+
+	return pre;
+}
+
+void print_linked_list1(node* ptr_head)
+{
+	int i = 0;
+	node* ptr_current = ptr_head;
+	while (ptr_current != NULL)
+	{
+		i++;
+		printf("%d\n", ptr_current->data);
+		ptr_current = ptr_current->next;
+	}
+	printf("i=%d\n", i);
+}
+
 int main()
 {
 	node* ptr_head = create_link_list();
@@ -453,9 +518,13 @@ int main()
 	node* sort_list = sortList(ptr_head);
 	print_linked_list(sort_list);*/
 
-	//printf("反转后的链表:\n");
+	printf("反转后的链表:\n");
 	//node* reverse_list = reverseList(ptr_head);
 	//print_linked_list(reverse_list);
+	// 反转链表(李森林版本)：
+	node* ptr_head1 = create_link_list1();
+	node* reverse_list = reverseList1(ptr_head1);
+	print_linked_list1(reverse_list);
 
 	//node* IntersectionNode = getIntersectionNode(ptr_head, ptr_head);
 	//if (IntersectionNode == NULL)
@@ -478,9 +547,9 @@ int main()
 	//	printf("否\n");
 	//}
 
-	printf("奇偶：\n");
+	/*printf("奇偶：\n");
 	node* p_t = oddEvenList(ptr_head);
-	print_linked_list(p_t);
+	print_linked_list(p_t);*/
 
 	/*node* tmp_delete = delete_linked_list(ptr_head, dest_value);
 	if (tmp_delete == NULL)
