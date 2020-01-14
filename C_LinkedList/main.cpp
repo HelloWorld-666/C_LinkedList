@@ -474,7 +474,7 @@ node* reverseList1(node* ptr_head){
 	while (cur != NULL)
 	{
 		end = cur->next;
-		cur->next = pre;
+		cur->next = pre;	// ·´×ª²Ù×÷
 		pre = cur;
 		cur = end;
 	}
