@@ -456,6 +456,7 @@ node* create_link_list1()
 		ptr_current = ptr_current->next;
 	}
 
+	/*这里不用释放头结点ptr_head，头结点中存有值：0*/
 	return ptr_head;
 }
 
@@ -466,7 +467,7 @@ node* reverseList1(node* ptr_head){
 	{
 		return ptr_head;
 	}
-	/***************************************************/
+ 
 	node* cur = ptr_head;
 	node* pre = NULL;
 	node* end = NULL;
@@ -477,9 +478,6 @@ node* reverseList1(node* ptr_head){
 		pre = cur;
 		cur = end;
 	}
-
-	free(ptr_head);
-	ptr_head = NULL;
 
 	return pre;
 }
