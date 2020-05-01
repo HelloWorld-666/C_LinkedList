@@ -468,18 +468,33 @@ node* reverseList1(node* ptr_head){
 		return ptr_head;
 	}
  
-	node* cur = ptr_head;
-	node* pre = NULL;
+	//node* cur = ptr_head;
+	//node* pre = NULL;
+	//node* end = NULL;
+	//while (cur != NULL)
+	//{
+	//	end = cur->next;
+	//	cur->next = pre;	// 反转操作
+	//	pre = cur;
+	//	cur = end;
+	//}
+
+	//return pre;
+
+	node* pre = ptr_head;
+	node* mid = NULL;
 	node* end = NULL;
-	while (cur != NULL)
+
+	while (mid != NULL)
 	{
-		end = cur->next;
-		cur->next = pre;	// 反转操作
-		pre = cur;
-		cur = end;
+		end = mid->next;
+		mid->next = pre;
+		pre = mid;
+		mid = end;
 	}
 
 	return pre;
+
 }
 
 void print_linked_list1(node* ptr_head)
