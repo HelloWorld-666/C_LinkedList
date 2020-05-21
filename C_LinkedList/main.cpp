@@ -17,7 +17,7 @@ node* create_link_list()
 	node* ptr_new = NULL;
 
 	ptr_head = (node*)malloc(1 * sizeof(node));
-	ptr_head->data = -100;
+	ptr_head->data = 0;			// 头节点保存链表长度
 	ptr_head->next = NULL;
 
 	ptr_current = ptr_head;
@@ -26,11 +26,12 @@ node* create_link_list()
 	for (i = 0; i < (sizeof(array)/sizeof(int)); i++)
 	{
 		ptr_new = (node*)malloc(1 * sizeof(node));
-		ptr_new->data = array[i];// i + 1;
+		ptr_new->data = array[i];	// i + 1;
 		ptr_new->next = NULL;
 
 		ptr_current->next = ptr_new;
 		ptr_current = ptr_current->next;
+		ptr_head->data++;
 	}
 
 	return ptr_head;
@@ -101,15 +102,12 @@ void free_link_list(node* ptr_head)
 
 void print_linked_list(node* ptr_head)
 {
-	int i = 0;
 	node* ptr_current = ptr_head->next;
 	while (ptr_current != NULL)
 	{
-		i++;
 		printf("%d\n", ptr_current->data);
 		ptr_current = ptr_current->next;
 	}
-	printf("i=%d\n", i);
 }
 
 // qsort中的比较函数，默认格式如下：
@@ -182,39 +180,31 @@ node* sortList(node* ptr_head){
 	return ptr_head;
 }
 
-// reverse linklist
-node* reverseList(node* ptr_head){
-
-	if (NULL == ptr_head || NULL == ptr_head->next)
+// reverse linklist （头结点中数据域是链表长度）
+node* reverseList(node* pHead)
+{
+	if (NULL == pHead || NULL == pHead->next)
 	{
-		return ptr_head;
+		return NULL;
 	}
 
-	node* p1 = ptr_head;
-	node* p2 = p1->next;
-	node* temp = NULL;//node* temp = p2->next;
-	ptr_head->next = NULL;	// p1->next = NULL;
+	node* pPre = NULL;			// pPre开始时为NULL，当第一次反向连接时:pMid->next = pPre(NULL)，pMid的下一个正好指向NULL
+	node* pMid = pHead->next;	// 初始时pMid是指向头结点的下一个有效节点
+	node* pEnd = NULL;
 
-	while (p2 != NULL)
+	pHead->next = NULL;			// 先将头结点独立出来
+
+	while (pMid != NULL)
 	{
-		temp = p2->next;// temp = temp->next;
-		p2->next = p1;
-		p1 = p2;
-		p2 = temp;
-		//temp = temp->next;
+		pEnd = pMid->next;
+		pMid->next = pPre;		// link
+		pPre = pMid;
+		pMid = pEnd;
 	}
 
-	//ptr_head->next = p1;
+	pHead->next = pPre;			// 再将头结点指向reverse之前的尾节点(也就是当前reverse之后头结点的下一个节点)
 
-	free(ptr_head);
-	ptr_head = NULL;
-
-	node* new_head = (node*)malloc(1*sizeof(node));
-	new_head->data = -999;
-	new_head->next = p1;
-
-
-	return new_head;//ptr_head;
+	return pHead;
 }
 
 /**
@@ -320,8 +310,6 @@ bool isPalindrome(struct node* head){
 	}
 
 	return true;*/
-
-
 
 
 	/* 
@@ -432,84 +420,6 @@ node* oddEvenList(node* head){
 	//return head;
 }
 
-/**************************************************************************/
-node* create_link_list1()
-{
-	node* ptr_head = NULL;
-	node* ptr_current = NULL;
-	node* ptr_new = NULL;
-
-	ptr_head = (node*)malloc(1 * sizeof(node));
-	ptr_head->data = 0;
-	ptr_head->next = NULL;
-
-	ptr_current = ptr_head;
-	int i;
-	int array[] = { 1, 2, 3, 4, 5 };
-	for (i = 0; i < (sizeof(array) / sizeof(int)); i++)
-	{
-		ptr_new = (node*)malloc(1 * sizeof(node));
-		ptr_new->data = array[i];// i + 1;
-		ptr_new->next = NULL;
-
-		ptr_current->next = ptr_new;
-		ptr_current = ptr_current->next;
-	}
-
-	/*这里不用释放头结点ptr_head，头结点中存有值：0*/
-	return ptr_head;
-}
-
-// reverse linklist(LiSenLing版本)
-node* reverseList1(node* ptr_head){
-
-	if (NULL == ptr_head || NULL == ptr_head->next)
-	{
-		return ptr_head;
-	}
- 
-	//node* cur = ptr_head;
-	//node* pre = NULL;
-	//node* end = NULL;
-	//while (cur != NULL)
-	//{
-	//	end = cur->next;
-	//	cur->next = pre;	// 反转操作
-	//	pre = cur;
-	//	cur = end;
-	//}
-
-	//return pre;
-
-	node* pre = ptr_head;
-	node* mid = NULL;
-	node* end = NULL;
-
-	while (mid != NULL)
-	{
-		end = mid->next;
-		mid->next = pre;
-		pre = mid;
-		mid = end;
-	}
-
-	return pre;
-
-}
-
-void print_linked_list1(node* ptr_head)
-{
-	int i = 0;
-	node* ptr_current = ptr_head;
-	while (ptr_current != NULL)
-	{
-		i++;
-		printf("%d\n", ptr_current->data);
-		ptr_current = ptr_current->next;
-	}
-	printf("i=%d\n", i);
-}
-
 int main()
 {
 	node* ptr_head = create_link_list();
@@ -527,17 +437,12 @@ int main()
 	printf("插入节点后的链表:\n");
 	print_linked_list(ptr_head);*/
 
-	/*printf("排序后的链表:\n");
-	node* sort_list = sortList(ptr_head);
-	print_linked_list(sort_list);*/
+	//printf("排序后的链表:\n");
+	//print_linked_list(sortList(ptr_head));
 
 	printf("反转后的链表:\n");
-	//node* reverse_list = reverseList(ptr_head);
-	//print_linked_list(reverse_list);
-	// 反转链表(李森林版本)：
-	node* ptr_head1 = create_link_list1();
-	node* reverse_list = reverseList1(ptr_head1);
-	print_linked_list1(reverse_list);
+	print_linked_list(reverseList(ptr_head));
+	printf("len(list) = %d\n", ptr_head->data);	// 头结点中保存链表长度
 
 	//node* IntersectionNode = getIntersectionNode(ptr_head, ptr_head);
 	//if (IntersectionNode == NULL)
