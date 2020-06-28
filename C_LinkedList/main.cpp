@@ -17,7 +17,7 @@ node* create_link_list()
 	node* ptr_new = NULL;
 
 	ptr_head = (node*)malloc(1 * sizeof(node));
-	ptr_head->data = 0;			// 头节点保存链表长度
+	ptr_head->data = -100;			// 头节点保存链表长度
 	ptr_head->next = NULL;
 
 	ptr_current = ptr_head;
@@ -31,7 +31,6 @@ node* create_link_list()
 
 		ptr_current->next = ptr_new;
 		ptr_current = ptr_current->next;
-		ptr_head->data++;
 	}
 
 	return ptr_head;
