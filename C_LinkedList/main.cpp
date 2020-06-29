@@ -17,22 +17,23 @@ node* create_link_list()
 	node* ptr_new = NULL;
 
 	ptr_head = (node*)malloc(1 * sizeof(node));
-	ptr_head->data = -100;			// 头节点保存链表长度
+	ptr_head->data = -100;				// 头节点保存链表长度
 	ptr_head->next = NULL;
 
 	ptr_current = ptr_head;
-	int i; 
-	int array[] = { 1,2,3,4,5 };
-	for (i = 0; i < (sizeof(array)/sizeof(int)); i++)
+	int len = 0;
+	for (int i = 0; i < 10; i++)
 	{
 		ptr_new = (node*)malloc(1 * sizeof(node));
-		ptr_new->data = array[i];	// i + 1;
+		ptr_new->data = i;
 		ptr_new->next = NULL;
 
 		ptr_current->next = ptr_new;
-		ptr_current = ptr_current->next;
+		ptr_current = ptr_current->next; // 这两句话效果一样：ptr_current = ptr_new;
+		len++;
 	}
 
+	ptr_head->data = len;
 	return ptr_head;
 }
 
