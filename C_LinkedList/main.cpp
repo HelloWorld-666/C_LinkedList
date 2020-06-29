@@ -4,10 +4,10 @@
 
 using namespace std;
 
-typedef struct node{	// node ÀàĞÍ
+typedef struct node{				// node ç±»å‹
 	int data;
 	node* next;	
-}node_obj;				// node_obj ÀàĞÍ¶ÔÏó
+}node_obj;					// node_obj ç±»å‹å¯¹è±¡
 
 // 
 node* create_link_list()
@@ -17,7 +17,7 @@ node* create_link_list()
 	node* ptr_new = NULL;
 
 	ptr_head = (node*)malloc(1 * sizeof(node));
-	ptr_head->data = -100;				// Í·½Úµã±£´æÁ´±í³¤¶È
+	ptr_head->data = -100;			// å¤´èŠ‚ç‚¹ä¿å­˜é“¾è¡¨é•¿åº¦
 	ptr_head->next = NULL;
 
 	ptr_current = ptr_head;
@@ -29,7 +29,7 @@ node* create_link_list()
 		ptr_new->next = NULL;
 
 		ptr_current->next = ptr_new;
-		ptr_current = ptr_current->next; // ÕâÁ½¾ä»°Ğ§¹ûÒ»Ñù£ºptr_current = ptr_new;
+		ptr_current = ptr_current->next; // è¿™ä¸¤å¥è¯æ•ˆæœä¸€æ ·ï¼šptr_current = ptr_new;
 		len++;
 	}
 
@@ -43,16 +43,16 @@ node* insert_linked_list(node* ptr_head, int dest_value, int data)
 	ptr_new->data = data;
 	ptr_new->next = NULL;
 
-	node* ptr_current = ptr_head->next;	// ²»ÓÃmalloc
-	node* ptr_current_pre = ptr_head;	// Ö¸ÏòcurrentµÄÇ°Ò»¸ö½Úµã,½öÓÃÓÚÇ°²å
+	node* ptr_current = ptr_head->next;	// ä¸ç”¨malloc
+	node* ptr_current_pre = ptr_head;	// æŒ‡å‘currentçš„å‰ä¸€ä¸ªèŠ‚ç‚¹,ä»…ç”¨äºå‰æ’
 	while (ptr_current != NULL)
 	{ 
 		if (ptr_current->data == dest_value)
 		{
-			// dest_valueºó²å
+			// dest_valueåæ’
 			ptr_new->next = ptr_current->next;
 			ptr_current->next = ptr_new;
-			// dest_value Ç°²å
+			// dest_value å‰æ’
 			//ptr_current_pre->next = ptr_new;
 			//ptr_new->next = ptr_current;
 			return ptr_head;
@@ -110,25 +110,25 @@ void print_linked_list(node* ptr_head)
 	}
 }
 
-// qsortÖĞµÄ±È½Ïº¯Êı£¬Ä¬ÈÏ¸ñÊ½ÈçÏÂ£º
+// qsortä¸­çš„æ¯”è¾ƒå‡½æ•°ï¼Œé»˜è®¤æ ¼å¼å¦‚ä¸‹ï¼š
 int compare(const void* a, const void* b)
 {
 	//int a1 = *(int*)a;
 	//int b1 = *(int*)b;
-	return *(int*)a - *(int*)b;	// Èç¹ûcompar·µ»ØÖµĞ¡ÓÚ0£¨< 0£©£¬ÄÇÃ´p1ËùÖ¸ÏòÔªËØ»á±»ÅÅÔÚp2ËùÖ¸ÏòÔªËØµÄÇ°Ãæ£»
+	return *(int*)a - *(int*)b;	// å¦‚æœcomparè¿”å›å€¼å°äº0ï¼ˆ< 0ï¼‰ï¼Œé‚£ä¹ˆp1æ‰€æŒ‡å‘å…ƒç´ ä¼šè¢«æ’åœ¨p2æ‰€æŒ‡å‘å…ƒç´ çš„å‰é¢ï¼›
 }
 
 /*
-	Ë¼Â·£º
-    1.ÏÈÍ³¼ÆÁ´±í½Úµã¸öÊınums
-    2.ÔÙmallocÒ»¸önums´óĞ¡µÄÊı×éarray£¬²¢½«±éÀúÁ´±íµÄval¸³Öµµ½Êı×éÖĞ
-    3.ÀûÓÃC¿âº¯Êı¿ìÅÅqsort()¶ÔÊı×éarrayÅÅĞò
-	4.±éÀúÁ´±í£¬²¢½«ÅÅºÃĞòµÄarray[i]¸³Öµ¸øÁ´±íÃ¿¸ö½ÚµãµÄval
+	æ€è·¯ï¼š
+    1.å…ˆç»Ÿè®¡é“¾è¡¨èŠ‚ç‚¹ä¸ªæ•°nums
+    2.å†mallocä¸€ä¸ªnumså¤§å°çš„æ•°ç»„arrayï¼Œå¹¶å°†éå†é“¾è¡¨çš„valèµ‹å€¼åˆ°æ•°ç»„ä¸­
+    3.åˆ©ç”¨Cåº“å‡½æ•°å¿«æ’qsort()å¯¹æ•°ç»„arrayæ’åº
+	4.éå†é“¾è¡¨ï¼Œå¹¶å°†æ’å¥½åºçš„array[i]èµ‹å€¼ç»™é“¾è¡¨æ¯ä¸ªèŠ‚ç‚¹çš„val
 	// sort-linkedlist
 */
 node* sortList(node* ptr_head){
 	/*
-	// Ã°Åİsort£º
+	// å†’æ³¡sortï¼š
 	node* p_first = ptr_head;
 	node* p_second = NULL;
 	while (p_first != NULL)
@@ -180,7 +180,7 @@ node* sortList(node* ptr_head){
 	return ptr_head;
 }
 
-// reverse linklist £¨Í·½áµãÖĞÊı¾İÓòÊÇÁ´±í³¤¶È£©
+// reverse linklist ï¼ˆå¤´ç»“ç‚¹ä¸­æ•°æ®åŸŸæ˜¯é“¾è¡¨é•¿åº¦ï¼‰
 node* reverseList(node* pHead)
 {
 	if (NULL == pHead || NULL == pHead->next)
@@ -188,11 +188,11 @@ node* reverseList(node* pHead)
 		return NULL;
 	}
 
-	node* pPre = NULL;			// pPre¿ªÊ¼Ê±ÎªNULL£¬µ±µÚÒ»´Î·´ÏòÁ¬½ÓÊ±:pMid->next = pPre(NULL)£¬pMidµÄÏÂÒ»¸öÕıºÃÖ¸ÏòNULL
-	node* pMid = pHead->next;	// ³õÊ¼Ê±pMidÊÇÖ¸ÏòÍ·½áµãµÄÏÂÒ»¸öÓĞĞ§½Úµã
+	node* pPre = NULL;			// pPreå¼€å§‹æ—¶ä¸ºNULLï¼Œå½“ç¬¬ä¸€æ¬¡åå‘è¿æ¥æ—¶:pMid->next = pPre(NULL)ï¼ŒpMidçš„ä¸‹ä¸€ä¸ªæ­£å¥½æŒ‡å‘NULL
+	node* pMid = pHead->next;	// åˆå§‹æ—¶pMidæ˜¯æŒ‡å‘å¤´ç»“ç‚¹çš„ä¸‹ä¸€ä¸ªæœ‰æ•ˆèŠ‚ç‚¹
 	node* pEnd = NULL;
 
-	pHead->next = NULL;			// ÏÈ½«Í·½áµã¶ÀÁ¢³öÀ´
+	pHead->next = NULL;			// å…ˆå°†å¤´ç»“ç‚¹ç‹¬ç«‹å‡ºæ¥
 
 	while (pMid != NULL)
 	{
@@ -202,20 +202,20 @@ node* reverseList(node* pHead)
 		pMid = pEnd;
 	}
 
-	pHead->next = pPre;			// ÔÙ½«Í·½áµãÖ¸ÏòreverseÖ®Ç°µÄÎ²½Úµã(Ò²¾ÍÊÇµ±Ç°reverseÖ®ºóÍ·½áµãµÄÏÂÒ»¸ö½Úµã)
+	pHead->next = pPre;			// å†å°†å¤´ç»“ç‚¹æŒ‡å‘reverseä¹‹å‰çš„å°¾èŠ‚ç‚¹(ä¹Ÿå°±æ˜¯å½“å‰reverseä¹‹åå¤´ç»“ç‚¹çš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹)
 
 	return pHead;
 }
 
 /**
-	Ë¼Â·£º
-	1.·Ö±ğ±éÀúÁ½¸öÁ´±í£¬Í³¼Æ½ÚµãÊıp_countºÍq_count
-	2.ÈÃÁ½ÌõÁ´±íÖĞ½Ï³¤µÄÄÇÌõÁ´±íµÄÖ¸Õëp´ÓÍ·ÏÈ×ß n=abs(p_count-q_count)²½
-	3.×îºópºÍq·Ö±ğÍùºó±éÀú£¬²¢±È½ÏÊÇ·ñÓĞÏàÍ¬µÄ½Úµã£¬ÓĞÔò·µ»Ø¸Ã½Úµã£¬ÎŞ·µ»ØNULL
+	æ€è·¯ï¼š
+	1.åˆ†åˆ«éå†ä¸¤ä¸ªé“¾è¡¨ï¼Œç»Ÿè®¡èŠ‚ç‚¹æ•°p_countå’Œq_count
+	2.è®©ä¸¤æ¡é“¾è¡¨ä¸­è¾ƒé•¿çš„é‚£æ¡é“¾è¡¨çš„æŒ‡é’ˆpä»å¤´å…ˆèµ° n=abs(p_count-q_count)æ­¥
+	3.æœ€åpå’Œqåˆ†åˆ«å¾€åéå†ï¼Œå¹¶æ¯”è¾ƒæ˜¯å¦æœ‰ç›¸åŒçš„èŠ‚ç‚¹ï¼Œæœ‰åˆ™è¿”å›è¯¥èŠ‚ç‚¹ï¼Œæ— è¿”å›NULL
 
-	Òª¿¼ÂÇµÄÇé¿öÈçÏÂ£º
-	1.µ±Á½¸öÁ´±íhead¶¼ÎªNULL
-	2.Á½¸öÁ´±í¶¼½ö½öÖ»ÓĞÍ¬Ò»¸ö½Úµã£¬³¤¶ÈÎª1
+	è¦è€ƒè™‘çš„æƒ…å†µå¦‚ä¸‹ï¼š
+	1.å½“ä¸¤ä¸ªé“¾è¡¨headéƒ½ä¸ºNULL
+	2.ä¸¤ä¸ªé“¾è¡¨éƒ½ä»…ä»…åªæœ‰åŒä¸€ä¸ªèŠ‚ç‚¹ï¼Œé•¿åº¦ä¸º1
 */
 node *getIntersectionNode(node *headA, node *headB) {
 	node* p = headA;
@@ -257,7 +257,7 @@ node *getIntersectionNode(node *headA, node *headB) {
 	}
 	else if (n < 0)
 	{
-		n = abs(n);					//ÒªÈ¡¾ø¶ÔÖµ£¬·ñÔòÂß¼­ÓĞÎÊÌâ
+		n = abs(n);					//è¦å–ç»å¯¹å€¼ï¼Œå¦åˆ™é€»è¾‘æœ‰é—®é¢˜
 		while (n > 0)
 		{
 			q = q->next;
@@ -265,7 +265,7 @@ node *getIntersectionNode(node *headA, node *headB) {
 		}
 	}
 
-	// n = 0,¼ÌĞøÍùÏÂÖ´ĞĞ
+	// n = 0,ç»§ç»­å¾€ä¸‹æ‰§è¡Œ
 
 	while (p != NULL && q != NULL)
 	{
@@ -281,7 +281,7 @@ node *getIntersectionNode(node *headA, node *headB) {
 }
 
 bool isPalindrome(struct node* head){
-	// ±©Á¦·½·¨·½·¨1£º
+	// æš´åŠ›æ–¹æ³•æ–¹æ³•1ï¼š
 	/*int nums = 0;
 	node* p_curr = head->next;
 	while (p_curr != NULL)
@@ -313,14 +313,14 @@ bool isPalindrome(struct node* head){
 
 
 	/* 
-		·½·¨2£º ·´×ªÁ´±í
-		Ë¼Â·£ºÀûÓÃ¿ìÂıÖ¸ÕëÕÒµ½ÖĞ¼ä£¬È»ºó½«Á´±íµÄºó°ë²¿·Ö·´×ª£¬ÔÙÒÀ´Î½øĞĞ±È½Ï
+		æ–¹æ³•2ï¼š åè½¬é“¾è¡¨
+		æ€è·¯ï¼šåˆ©ç”¨å¿«æ…¢æŒ‡é’ˆæ‰¾åˆ°ä¸­é—´ï¼Œç„¶åå°†é“¾è¡¨çš„ååŠéƒ¨åˆ†åè½¬ï¼Œå†ä¾æ¬¡è¿›è¡Œæ¯”è¾ƒ
 	*/
 	if (head == NULL)
 	{
 		return false;
 	}
-	if (head->next != NULL && head->next->next == NULL)  // £¨ LetÖĞÔò£ºif (head != NULL || head->next == NULL) ) // Èç¹ûÖ»ÓĞÒ»¸ö½Úµã
+	if (head->next != NULL && head->next->next == NULL)  // ï¼ˆ Letä¸­åˆ™ï¼šif (head != NULL || head->next == NULL) ) // å¦‚æœåªæœ‰ä¸€ä¸ªèŠ‚ç‚¹
 	{
 		return true;
 	}
@@ -328,32 +328,32 @@ bool isPalindrome(struct node* head){
 	node* p_slow = head;
 	node* p_fast = head;
 
-	// ÕÒÖĞ¼äÎ»ÖÃ
-	while (p_fast != NULL && p_fast->next != NULL)		// Í·½áµãµÄÏÂÒ»¸ö½Úµã²»ÎªNULL£¬Ïàµ±ÓÚ³ıÁËÍ·Ö®ÍâµÄµÚ1¡¢2¡¢3....¸ö½Úµã²»ÎªNULL£¨LetÖĞÔò£ºp_fast != NULL£©
+	// æ‰¾ä¸­é—´ä½ç½®
+	while (p_fast != NULL && p_fast->next != NULL)		// å¤´ç»“ç‚¹çš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹ä¸ä¸ºNULLï¼Œç›¸å½“äºé™¤äº†å¤´ä¹‹å¤–çš„ç¬¬1ã€2ã€3....ä¸ªèŠ‚ç‚¹ä¸ä¸ºNULLï¼ˆLetä¸­åˆ™ï¼šp_fast != NULLï¼‰
 	{
 		p_slow = p_slow->next;
 		p_fast = p_fast->next->next;
 	}
 
-	// reverse linkedlistºó°ë²¿·Ö
-	node* p_temp = p_slow->next;						// ±¸·İÖĞ¼ä½Úµã:ÕÒÖĞ¼äÎ»ÖÃ£¬ÂıÖ¸ÕëµÄÏÂÒ»¸ö½ÚµãÎªÖĞ¼ä½Úµã
+	// reverse linkedlistååŠéƒ¨åˆ†
+	node* p_temp = p_slow->next;						// å¤‡ä»½ä¸­é—´èŠ‚ç‚¹:æ‰¾ä¸­é—´ä½ç½®ï¼Œæ…¢æŒ‡é’ˆçš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹ä¸ºä¸­é—´èŠ‚ç‚¹
 	p_fast = p_temp;
 	node* p_fast1 = p_temp->next;
 	node* p_fast2 = NULL;
 
-	p_slow->next = NULL;								// ÇĞ¶ÏÖĞ¼äÎ»ÖÃÇ°µÄnextÁ¬½Ó1
-	p_temp->next = NULL;								// ÇĞ¶ÏÖĞ¼äÎ»ÖÃºóµÄnextÁ¬½Ó2
+	p_slow->next = NULL;								// åˆ‡æ–­ä¸­é—´ä½ç½®å‰çš„nextè¿æ¥1
+	p_temp->next = NULL;								// åˆ‡æ–­ä¸­é—´ä½ç½®åçš„nextè¿æ¥2
 
 	while (p_fast1 != NULL)
 	{
 		p_fast2 = p_fast1->next;
 
-		p_fast1->next = p_fast;							// ·´ÏòÁ¬½Ó
+		p_fast1->next = p_fast;							// åå‘è¿æ¥
 		p_fast = p_fast1;
 		p_fast1 = p_fast2;
 	}
 
-	p_slow = head->next;								// ²»ÖØĞÂ¶¨ÒåÖ¸Õë£¬¸´ÓÃp_slowÖØĞÂÖ¸ÏòÍ·(LetÖĞ£ºp_slow = head)
+	p_slow = head->next;								// ä¸é‡æ–°å®šä¹‰æŒ‡é’ˆï¼Œå¤ç”¨p_slowé‡æ–°æŒ‡å‘å¤´(Letä¸­ï¼šp_slow = head)
 	while (p_slow != NULL && p_fast != NULL)
 	{
 		if (p_slow->data != p_fast->data)
@@ -367,14 +367,14 @@ bool isPalindrome(struct node* head){
 }
 
 /* 
-	ÆæÅ¼linkedlist :
+	å¥‡å¶linkedlist :
 	1->2->3->4->5->NULL  1->3->5->2->4->NULL
 
-	Ë¼Â·£º
-	1.ÓÃÁ½¸öÆæÅ¼Ö¸Õë·Ö±ğÖ¸ÏòÆæÅ¼½ÚµãµÄÆğÊ¼Î»ÖÃ£¬ÁíÍâĞèÒªÒ»¸öµ¥¶ÀµÄÖ¸Õëeven_headÀ´±£´æÅ¼½ÚµãµÄÆğµãÎ»ÖÃ£¬
-	2.È»ºó°ÑÆæ½ÚµãµÄÖ¸ÏòÅ¼½ÚµãµÄÏÂÒ»¸ö(Ò»¶¨ÊÇÆæ½Úµã)£¬´ËÆæ½ÚµãºóÒÆÒ»²½;
-	  ÔÙ°ÑÅ¼½ÚµãÖ¸ÏòÏÂÒ»¸öÆæ½ÚµãµÄÏÂÒ»¸ö(Ò»¶¨ÊÇÅ¼½Úµã)£¬´ËÅ¼½ÚµãºóÒÆÒ»²½£¬ÒÔ´ËÀàÍÆÖ±ÖÁÄ©Î²£¬
-	3.´ËÊ±°Ñ·Ö¿ªµÄÅ¼½ÚµãµÄÁ´±íÁ¬ÔÚÆæ½ÚµãµÄÁ´±íºó¼´¿É
+	æ€è·¯ï¼š
+	1.ç”¨ä¸¤ä¸ªå¥‡å¶æŒ‡é’ˆåˆ†åˆ«æŒ‡å‘å¥‡å¶èŠ‚ç‚¹çš„èµ·å§‹ä½ç½®ï¼Œå¦å¤–éœ€è¦ä¸€ä¸ªå•ç‹¬çš„æŒ‡é’ˆeven_headæ¥ä¿å­˜å¶èŠ‚ç‚¹çš„èµ·ç‚¹ä½ç½®ï¼Œ
+	2.ç„¶åæŠŠå¥‡èŠ‚ç‚¹çš„æŒ‡å‘å¶èŠ‚ç‚¹çš„ä¸‹ä¸€ä¸ª(ä¸€å®šæ˜¯å¥‡èŠ‚ç‚¹)ï¼Œæ­¤å¥‡èŠ‚ç‚¹åç§»ä¸€æ­¥;
+	  å†æŠŠå¶èŠ‚ç‚¹æŒ‡å‘ä¸‹ä¸€ä¸ªå¥‡èŠ‚ç‚¹çš„ä¸‹ä¸€ä¸ª(ä¸€å®šæ˜¯å¶èŠ‚ç‚¹)ï¼Œæ­¤å¶èŠ‚ç‚¹åç§»ä¸€æ­¥ï¼Œä»¥æ­¤ç±»æ¨ç›´è‡³æœ«å°¾ï¼Œ
+	3.æ­¤æ—¶æŠŠåˆ†å¼€çš„å¶èŠ‚ç‚¹çš„é“¾è¡¨è¿åœ¨å¥‡èŠ‚ç‚¹çš„é“¾è¡¨åå³å¯
 */
 
 node* oddEvenList(node* head){
@@ -398,23 +398,23 @@ node* oddEvenList(node* head){
 	return head;
 
 	/*
-	ÏÂÃæµÄ·½·¨Ïë²»¸Ä±ä½ÚµãµÄÖ¸Ïò£¬¶øÖ±½Ó½»»»½ÚµãµÄÖµ£¬ÊÂÊµÉÏ£¬¸Ã·½·¨¾­²âÊÔ²»¿ÉĞĞ.
+	ä¸‹é¢çš„æ–¹æ³•æƒ³ä¸æ”¹å˜èŠ‚ç‚¹çš„æŒ‡å‘ï¼Œè€Œç›´æ¥äº¤æ¢èŠ‚ç‚¹çš„å€¼ï¼Œäº‹å®ä¸Šï¼Œè¯¥æ–¹æ³•ç»æµ‹è¯•ä¸å¯è¡Œ.
 	*/
 
-	//// µÚÒ»¸ö½ÚµãÎ»ÖÃ²»±ä£¬ËùÒÔ´ÓµÚÈı¸ö½Úµã¿ªÊ¼
-	//node* p_odd = head->next->next->next;					// µÚ¶ş¸öÆæ
-	//node* p_event = head->next->next;						// Å¼
+	//// ç¬¬ä¸€ä¸ªèŠ‚ç‚¹ä½ç½®ä¸å˜ï¼Œæ‰€ä»¥ä»ç¬¬ä¸‰ä¸ªèŠ‚ç‚¹å¼€å§‹
+	//node* p_odd = head->next->next->next;					// ç¬¬äºŒä¸ªå¥‡
+	//node* p_event = head->next->next;						// å¶
 	//
 	//while (p_odd != NULL && p_odd->next != NULL /*&& p_odd->next->next != NULL*/ /*p_event->next != NULL*/)
 	//{
 	//	// swap:
 	//	swap(p_odd->data, p_event->data);
-	//	//int tmp = p_odd->data;	// µÚÒ»¸öÆæ½ÚµãµÄÏÂÒ»¸öµÄÏÂÒ»¸öÓëµÚÒ»¸öÅ¼½»»»
+	//	//int tmp = p_odd->data;	// ç¬¬ä¸€ä¸ªå¥‡èŠ‚ç‚¹çš„ä¸‹ä¸€ä¸ªçš„ä¸‹ä¸€ä¸ªä¸ç¬¬ä¸€ä¸ªå¶äº¤æ¢
 	//	//p_odd->data = p_event->data;
 	//	//p_event->data = tmp;
 
-	//	p_odd = p_odd->next->next;		// ÆæÌø2
-	//	p_event = p_event->next->next;  // Å¼Ìø2	
+	//	p_odd = p_odd->next->next;		// å¥‡è·³2
+	//	p_event = p_event->next->next;  // å¶è·³2	
 	//}
 
 	//return head;
@@ -423,7 +423,7 @@ node* oddEvenList(node* head){
 int main()
 {
 	node* ptr_head = create_link_list();
-	printf("³õÊ¼Á´±í:\n");
+	printf("åˆå§‹é“¾è¡¨:\n");
 	print_linked_list(ptr_head);
 
 	/*int data = 17;
@@ -434,38 +434,38 @@ int main()
 	{
 		printf("not find dest_value value.\n");
 	}
-	printf("²åÈë½ÚµãºóµÄÁ´±í:\n");
+	printf("æ’å…¥èŠ‚ç‚¹åçš„é“¾è¡¨:\n");
 	print_linked_list(ptr_head);*/
 
-	//printf("ÅÅĞòºóµÄÁ´±í:\n");
+	//printf("æ’åºåçš„é“¾è¡¨:\n");
 	//print_linked_list(sortList(ptr_head));
 
-	printf("·´×ªºóµÄÁ´±í:\n");
+	printf("åè½¬åçš„é“¾è¡¨:\n");
 	print_linked_list(reverseList(ptr_head));
-	printf("len(list) = %d\n", ptr_head->data);	// Í·½áµãÖĞ±£´æÁ´±í³¤¶È
+	printf("len(list) = %d\n", ptr_head->data);	// å¤´ç»“ç‚¹ä¸­ä¿å­˜é“¾è¡¨é•¿åº¦
 
 	//node* IntersectionNode = getIntersectionNode(ptr_head, ptr_head);
 	//if (IntersectionNode == NULL)
 	//{
-	//	printf("ÎŞÏà½»½Úµã");
+	//	printf("æ— ç›¸äº¤èŠ‚ç‚¹");
 	//}
 	//else
 	//{
-	//	printf("Ïà½»µÄµÄ½Úµã:\n");
+	//	printf("ç›¸äº¤çš„çš„èŠ‚ç‚¹:\n");
 	//}
 	//print_linked_list(IntersectionNode);
 
 	//bool b = isPalindrome(ptr_head);
 	//if (b == true)
 	//{
-	//	printf("ÊÇ\n");
+	//	printf("æ˜¯\n");
 	//}
 	//else
 	//{
-	//	printf("·ñ\n");
+	//	printf("å¦\n");
 	//}
 
-	/*printf("ÆæÅ¼£º\n");
+	/*printf("å¥‡å¶ï¼š\n");
 	node* p_t = oddEvenList(ptr_head);
 	print_linked_list(p_t);*/
 
@@ -474,7 +474,7 @@ int main()
 	{
 		printf("not find dest_value value.\n");
 	}
-	printf("É¾³ı½ÚµãºóµÄÁ´±í:\n");
+	printf("åˆ é™¤èŠ‚ç‚¹åçš„é“¾è¡¨:\n");
 	print_linked_list(ptr_head);
 
 	free_link_list(ptr_head);*/
