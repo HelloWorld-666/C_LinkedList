@@ -185,11 +185,11 @@ node* reverseList(node* pHead)
 {
 	if (NULL == pHead || NULL == pHead->next)
 	{
-		return NULL;
+		return pHead;
 	}
 
 	node* pPre = NULL;			// pPre开始时为NULL，当第一次反向连接时:pMid->next = pPre(NULL)，pMid的下一个正好指向NULL
-	node* pMid = pHead->next;	// 初始时pMid是指向头结点的下一个有效节点
+	node* pMid = pHead->next;	        // 初始时pMid是指向头结点的下一个有效节点
 	node* pEnd = NULL;
 
 	pHead->next = NULL;			// 先将头结点独立出来
@@ -206,6 +206,32 @@ node* reverseList(node* pHead)
 
 	return pHead;
 }
+
+// 如LeetCode中，头结点也存有效值，而不是链表长度等无效值时：
+ListNode* reverseList(ListNode* head) {
+        if (NULL == head || NULL == head->next)
+        {
+            return head;
+        }
+
+        ListNode* pPre = NULL;		// pPre开始时为NULL，当第一次反向连接时:pMid->next = pPre(NULL)，pMid的下一个正好指向NULL
+        ListNode* pMid = head;	        // 初始时pMid是指向头结点的下一个有效节点
+        ListNode* pEnd = NULL;
+
+        // head->next = NULL;		// 略去：先将头结点独立出来
+
+        while (pMid != NULL)
+        {
+            pEnd = pMid->next;
+            pMid->next = pPre;		// link
+            pPre = pMid;
+            pMid = pEnd;
+        }
+
+        // head->next = pPre;		// 略去：再将头结点指向reverse之前的尾节点(也就是当前reverse之后头结点的下一个节点)
+
+        return pPre;
+    }
 
 /**
 	思路：
